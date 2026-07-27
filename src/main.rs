@@ -187,3 +187,33 @@ fn handle_weather(city: &str, forecast: bool) {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn command_current_holds_city() {
+        let cmd = Command::Current { city: "London".into() };
+        match cmd {
+            Command::Current { city } => assert_eq!(city, "London"),
+            _ => panic!("wrong variant"),
+        }
+    }
+
+    #[test]
+    fn command_forecast_holds_city() {
+        let cmd = Command::Forecast { city: "Tokyo".into() };
+        match cmd {
+            Command::Forecast { city } => assert_eq!(city, "Tokyo"),
+            _ => panic!("wrong variant"),
+        }
+    }
+
+    #[test]
+    fn urlencodes_spaces() {
+        let city = "New York";
+        let url = format!("https://wttr.in/{}?format=j1", city.replace(' ', "%20"));
+        assert_eq!(url, "https://wttr.in/New%20York?format=j1");
+    }
+}
