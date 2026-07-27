@@ -39,7 +39,7 @@ jobs:
         shell: bash
         run: |
           cd target/${{ matrix.target }}/release
-          tar czf wthr-${{ github.ref_name }}-${{ matrix.target }}${{ matrix.ext }}.tar.gz wthr${{ matrix.ext }}
+          tar czf wthr-${{ github.ref_name }}-${{ matrix.target }}.tar.gz wthr${{ matrix.ext }}
 
       - name: Upload
         uses: actions/upload-artifact@v4
